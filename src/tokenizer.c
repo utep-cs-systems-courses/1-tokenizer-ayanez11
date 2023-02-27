@@ -10,7 +10,7 @@ int space_char(char c)
 
 int non_space_char(char c)
 {
-  if (!space_char(c) && c != '\0') return 1;
+  if (!space_char(c)) return 1;
   else return 0;
 }
 
@@ -51,40 +51,34 @@ char *copy_str(char *inStr, short len)
   do {
     c = *(scopy+sindex) = *(inStr+sindex);
     sindex++;
-  } while (c);
+  } while (sindex < len);
+  *(scopy+sindex) = '\0'; //adds null terminator to string
   return scopy;
-}
-
-int word_len(char *w)
-{
-  char *wc = w;
-  wc = word_terminator(wc);
-  return wc - w;
 }
 
 char **tokenize(char *str)
 {
-  int c = count_words(str);
-  char **tokens[c];
+  int i = count_words(str);
+  char **t = malloc((i + 3) * sizeof(char));
+  int tindex = 0;
   while (*str != '\0') {
     str = word_start(str);
-    int tindex = 0;
-    if (*str != '\0') {
-      char *sc = str;
-      sc = word_terminator(sc);
-      int len = sc - str;
-      **(tokens+tindex) = copy_str(str,len);
-      str = sc;
-      tindex++;
-    }
+    char *sc = str;
+    sc = word_terminator(sc);
+    int len = sc - str;
+    *(t+tindex) = &(*copy_str(str,len));
+    str = sc;
+    tindex++;
   }
-  return *tokens;
+  return t;
 }
 
 void print_tokens(char **tokens)
 {
+  int i = 0;
   while(**tokens != '\0') {
-    puts(*tokens);
-    **tokens++;
+    printf("token %d  %s\n", i, tokens[i]);
+    i++;
   }
+  free(tokens);
 }

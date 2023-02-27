@@ -3,14 +3,14 @@
 
 int main()
 {
-  char tokens[20];
+  char tokens[30];
   printf("> ");
-  fgets(tokens, 20, stdin);
-  printf("You entered ");
-  char *t;
-  t = &(**tokenize(tokens));
-  puts(t);
-  //print_tokens(t);
+  fgets(tokens, 30, stdin);
+  printf("You entered \n");
+  char *s = tokens;
+  char **t = tokenize(s);
+  print_tokens(t);
+  
  done:
   return 0;
 }
