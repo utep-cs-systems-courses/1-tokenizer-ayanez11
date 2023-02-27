@@ -84,5 +84,16 @@ void print_tokens(char **tokens)
     *tokens++;
     i++;
   }
-  //free(tokens);
+}
+
+void free_tokens(char **tokens)
+{
+  char **t;
+  t = tokens;
+  while(**t != ' ') {
+    free(*t);
+    *t++;
+  }
+  free(*t);// removes pointer to ' '
+  free(tokens);
 }

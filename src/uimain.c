@@ -9,7 +9,7 @@ int main()
   char *s = tokens;
   char **t = tokenize(s);
   print_tokens(t);
-  
+  free_tokens(t);  
  done:
   return 0;
 }
